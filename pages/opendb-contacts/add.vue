@@ -1,23 +1,24 @@
-
 <template>
   <view class="uni-container">
     <uni-forms ref="form" :value="formData" validate-trigger="submit" err-show-type="toast">
       <uni-forms-item name="username" label="姓名" required>
-  <uni-easyinput placeholder="姓名" v-model="formData.username" trim="both" />
-</uni-forms-item>
-<uni-forms-item name="gender" label="性别">
-  <uni-data-checkbox v-model="formData.gender" :localdata="formOptions.gender_localdata" />
-</uni-forms-item>
-<uni-forms-item name="mobile" label="电话" required>
-  <uni-easyinput placeholder="电话" v-model="formData.mobile" trim="both" />
-</uni-forms-item>
-<uni-forms-item name="email" label="邮箱">
-  <uni-easyinput placeholder="邮箱地址" v-model="formData.email" trim="both" />
-</uni-forms-item>
-<uni-forms-item name="comment" label="备注">
-  <textarea @input="binddata('comment', $event.detail.value)" class="uni-textarea-border" :value="formData.comment" trim="both"></textarea>
-</uni-forms-item>
-
+        <uni-easyinput placeholder="姓名" v-model="formData.username" trim="both"></uni-easyinput>
+      </uni-forms-item>
+      <uni-forms-item name="gender" label="性别">
+        <uni-data-checkbox v-model="formData.gender" :localdata="formOptions.gender_localdata"></uni-data-checkbox>
+      </uni-forms-item>
+      <uni-forms-item name="mobile" label="电话" required>
+        <uni-easyinput placeholder="电话" v-model="formData.mobile" trim="both"></uni-easyinput>
+      </uni-forms-item>
+      <uni-forms-item name="nation_china" label="民族">
+        <uni-data-picker v-model="formData.nation_china" collection="opendb-nation-china" field="name as text, _id as value"></uni-data-picker>
+      </uni-forms-item>
+      <uni-forms-item name="email" label="邮箱">
+        <uni-easyinput placeholder="邮箱地址" v-model="formData.email" trim="both"></uni-easyinput>
+      </uni-forms-item>
+      <uni-forms-item name="comment" label="备注">
+        <textarea placeholder="备注" @input="binddata('comment', $event.detail.value)" class="uni-textarea-border" v-model="formData.comment" trim="both"></textarea>
+      </uni-forms-item>
       <view class="uni-button-group">
         <button type="primary" class="uni-button" @click="submit">提交</button>
       </view>
@@ -32,43 +33,45 @@
   const dbCollectionName = 'opendb-contacts';
 
   function getValidator(fields) {
-    let reuslt = {}
+    let result = {}
     for (let key in validator) {
       if (fields.indexOf(key) > -1) {
-        reuslt[key] = validator[key]
+        result[key] = validator[key]
       }
     }
-    return reuslt
+    return result
   }
 
   export default {
     data() {
+      let formData = {
+        "username": "",
+        "gender": 0,
+        "mobile": "",
+        "nation_china": "",
+        "email": "",
+        "comment": ""
+      }
       return {
-        formData: {
-  "username": "",
-  "gender": 0,
-  "mobile": "",
-  "email": "",
-  "comment": ""
-},
+        formData,
         formOptions: {
-  "gender_localdata": [
-    {
-      "text": "未知",
-      "value": 0
-    },
-    {
-      "text": "男",
-      "value": 1
-    },
-    {
-      "text": "女",
-      "value": 2
-    }
-  ]
-},
+          "gender_localdata": [
+            {
+              "text": "未知",
+              "value": 0
+            },
+            {
+              "text": "男",
+              "value": 1
+            },
+            {
+              "text": "女",
+              "value": 2
+            }
+          ]
+        },
         rules: {
-          ...getValidator(["username","gender","mobile","email","comment"])
+          ...getValidator(Object.keys(formData))
         }
       }
     },
@@ -83,9 +86,9 @@
         uni.showLoading({
           mask: true
         })
-        this.$refs.form.submit().then((res) => {
+        this.$refs.form.validate().then((res) => {
           this.submitForm(res)
-        }).catch((errors) => {
+        }).catch(() => {
           uni.hideLoading()
         })
       },
@@ -140,7 +143,9 @@
 
   .uni-button-group {
     margin-top: 50px;
+    /* #ifndef APP-NVUE */
     display: flex;
+    /* #endif */
     justify-content: center;
   }
 
@@ -153,4 +158,3 @@
     margin: 0;
   }
 </style>
-

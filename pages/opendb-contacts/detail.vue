@@ -1,32 +1,35 @@
 <template>
   <view class="container">
-    <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :options="options" collection="opendb-contacts" field="username,gender,mobile,email,comment" :where="queryWhere" :getone="true" :manual="true">
+    <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :options="options" collection="opendb-contacts" field="username,gender,mobile,nation_china{name},email,comment" :where="queryWhere" :getone="true" :manual="true">
       <view v-if="error">{{error.message}}</view>
       <view v-else-if="loading">
         <uni-load-more :contentText="loadMore" status="loading"></uni-load-more>
       </view>
       <view v-else-if="data">
-           <view>
-     <text>姓名:</text>
-                     <text>{{data.username}}</text>            
-   </view> 
-    <view>
-     <text>性别:</text>
-                                <text>{{options.gender_valuetotext[data.gender]}}</text>                     
-   </view> 
-    <view>
-     <text>电话:</text>
-                     <text>{{data.mobile}}</text>            
-   </view> 
-    <view>
-     <text>邮箱:</text>
-                       <uni-link :href="'mailto:'+data.email" :text="data.email"></uni-link>            
-   </view> 
-    <view>
-     <text>备注:</text>
-                     <text>{{data.comment}}</text>            
-   </view> 
-  
+        <view>
+          <text>姓名</text>
+          <text>{{data.username}}</text>
+        </view>
+        <view>
+          <text>性别</text>
+          <text>{{options.gender_valuetotext[data.gender]}}</text>
+        </view>
+        <view>
+          <text>电话</text>
+          <text>{{data.mobile}}</text>
+        </view>
+        <view>
+          <text>民族</text>
+          <text>{{data.nation_china && data.nation_china[0] && data.nation_china[0].name}}</text>
+        </view>
+        <view>
+          <text>邮箱</text>
+          <uni-link :href="'mailto:'+data.email" :text="data.email"></uni-link>
+        </view>
+        <view>
+          <text>备注</text>
+          <text>{{data.comment}}</text>
+        </view>
       </view>
     </unicloud-db>
     <view class="btns">
@@ -99,7 +102,9 @@
 
   .btns {
     margin-top: 10px;
+    /* #ifndef APP-NVUE */
     display: flex;
+    /* #endif */
     flex-direction: row;
   }
 

@@ -1,14 +1,17 @@
 <template>
   <view class="container">
-    <unicloud-db ref="udb" v-slot:default="{data, pagination, loading, hasMore, error}" collection="opendb-contacts" field="username,gender,mobile,email,comment">
+    <unicloud-db ref="udb" v-slot:default="{data, pagination, loading, hasMore, error}" collection="opendb-contacts" field="username,gender,mobile,nation_china{name},email,comment">
       <view v-if="error">{{error.message}}</view>
       <view v-else-if="data">
         <uni-list>
           <uni-list-item v-for="(item, index) in data" :key="index" showArrow :clickable="true" @click="handleItemClick(item._id)">
-            <view slot="body">
-              <!-- 此处默认显示为_id，请根据需要自行修改为其他字段 -->
-              {{item._id}}
-            </view>
+            <template v-slot:body>
+              <text>
+                <!-- 此处默认显示为_id，请根据需要自行修改为其他字段 -->
+                <!-- 如果使用了联表查询，请参考生成的 admin 项目中 list.vue 页面的绑定字段的写法 -->
+                {{item._id}}
+              </text>
+            </template>
           </uni-list-item>
         </uni-list>
       </view>
