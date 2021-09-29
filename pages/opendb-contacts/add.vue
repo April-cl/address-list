@@ -13,6 +13,9 @@
       <uni-forms-item name="nation_china" label="民族">
         <uni-data-picker v-model="formData.nation_china" collection="opendb-nation-china" field="name as text, _id as value"></uni-data-picker>
       </uni-forms-item>
+      <uni-forms-item name="address" label="地址">
+        <uni-data-picker self-field="code" parent-field="parent_code" v-model="formData.address" collection="opendb-city-china" field="name as text, code as value"></uni-data-picker>
+      </uni-forms-item>
       <uni-forms-item name="email" label="邮箱">
         <uni-easyinput placeholder="邮箱地址" v-model="formData.email" trim="both"></uni-easyinput>
       </uni-forms-item>
@@ -49,6 +52,7 @@
         "gender": 0,
         "mobile": "",
         "nation_china": "",
+        "address": "",
         "email": "",
         "comment": ""
       }

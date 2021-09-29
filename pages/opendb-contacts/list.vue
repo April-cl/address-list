@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <unicloud-db ref="udb" v-slot:default="{data, pagination, loading, hasMore, error}" collection="opendb-contacts" field="username,gender,mobile,nation_china{name},email,comment">
+    <unicloud-db ref="udb" v-slot:default="{data, pagination, loading, hasMore, error}" collection="opendb-contacts" field="username,gender,mobile,nation_china{name},address{name},email,comment">
       <view v-if="error">{{error.message}}</view>
       <view v-else-if="data">
         <uni-list>

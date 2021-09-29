@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :options="options" collection="opendb-contacts" field="username,gender,mobile,nation_china{name},email,comment" :where="queryWhere" :getone="true" :manual="true">
+    <unicloud-db ref="udb" v-slot:default="{data, loading, error, options}" :options="options" collection="opendb-contacts" field="username,gender,mobile,nation_china{name},address{name},email,comment" :where="queryWhere" :getone="true" :manual="true">
       <view v-if="error">{{error.message}}</view>
       <view v-else-if="loading">
         <uni-load-more :contentText="loadMore" status="loading"></uni-load-more>
@@ -21,6 +21,10 @@
         <view>
           <text>民族</text>
           <text>{{data.nation_china && data.nation_china[0] && data.nation_china[0].name}}</text>
+        </view>
+        <view>
+          <text>地址</text>
+          <text>{{data.address && data.address[0] && data.address[0].name}}</text>
         </view>
         <view>
           <text>邮箱</text>

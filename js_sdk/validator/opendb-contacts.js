@@ -60,6 +60,14 @@ const validator = {
     ],
     "label": "民族"
   },
+  "address": {
+    "rules": [
+      {
+        "format": "string"
+      }
+    ],
+    "label": "地址"
+  },
   "email": {
     "rules": [
       {

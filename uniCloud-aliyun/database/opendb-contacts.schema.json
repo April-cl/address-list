@@ -15,14 +15,12 @@
 			"bsonType": "string",
 			"title": "姓名",
 			"description": "姓名",
-			"order": 1,
 			"trim": "both"
 		},
 		"gender": {
 			"bsonType": "int",
 			"title": "性别",
 			"description": "用户性别：0 未知 1 男性 2 女性",
-			"order": 2,
 			"defaultValue": 0,
 			"enum": [{
 				"text": "未知",
@@ -38,7 +36,6 @@
 		"mobile": {
 			"bsonType": "string",
 			"title": "电话",
-			"order": 3,
 			"description": "电话",
 			"pattern": "^\\+?[0-9-]{3,20}$",
 			"trim": "both"
@@ -46,7 +43,6 @@
 		"nation_china": {
 			"bsonType": "string",
 			"title": "民族",
-			"order": 4,
 			"enum": {
 				"collection":"opendb-nation-china",
 				"field":"name as text, _id as value"
@@ -55,18 +51,25 @@
 				"name": "uni-data-picker"
 			}
 		},
+		"address": {
+			"bsonType": "string",
+			"title": "地址",
+			"enum": {
+				"collection":"opendb-city-china",
+				"field":"name as text, code as value"
+			},
+			"enumType":"tree"
+		},
 		"email": {
 			"bsonType": "string",
 			"format": "email",
 			"title": "邮箱",
-			"order": 5,
 			"description": "邮箱地址",
 			"trim": "both"
 		},
 		"comment": {
 			"bsonType": "string",
 			"title": "备注",
-			"order": 6,
 			"description": "备注",
 			"trim": "both",
 			"component": {
